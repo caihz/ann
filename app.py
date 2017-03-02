@@ -7,5 +7,12 @@ app = Flask(__name__)
 def hello_world():
     return render_template('canvas.html')
 
+
+@app.route('/ann', methods=['POST'])
+def request_img():
+	print request.get_data()
+	return 'success'
+
+
 if __name__ == '__main__':
     app.run()
