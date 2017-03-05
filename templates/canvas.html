@@ -10,17 +10,10 @@
       <canvas id="myCanvas" width="600" height="600">
       你的浏览器不支持HTML5
       </canvas>
-      <br/><br/>画笔颜色:
-      <button style="width:80px;background-color:white;" onclick='linecolor="white";'>White</button>
-      <br />画笔粗细:
-      <button style="width:80px;background-color:white;" onclick="linw = 8;">8px</button>
-      <button style="width:80px;background-color:white;" onclick="linw = 16;">16px</button>
-      <button style="width:80px;background-color:white;" onclick="linw = 20;">20px</button>
-      <br />导出画板:
-      <button style="width:1s80px;background-color:white;" onclick="copyimage();">Export Canvas To Image</button>
+      <br />
+      <button style="width:1s80px;background-color:white;" onclick="copyimage();">识别</button>
       <button style="width:80px;background-color:white;" onclick="clean();">clean</button>
       <br /><br />
-      <img src="" id="image_png" width="600" height="600">
     </div>
     
     
@@ -41,7 +34,7 @@
     //设置画笔颜色
     var linecolor = "white";
     //设置线宽
-    var linw = 8;
+    var linw = 30;
     //添加鼠标移动事件
     canvas.addEventListener("mousemove", draw, true);
     //添加鼠标按下事件
@@ -105,17 +98,14 @@
         "data":"test"
     }
 
-    //导出画板
     function copyimage(event){
     var img_png_src = canvas.toDataURL("image/png");
-    document.getElementById("image_png").src = img_png_src;
-
     $.ajax({
         type:'POST',
         url: '/ann',
         data: img_data["data"]=img_png_src,
-        function(data,status){
-            alert(data+" "+status);
+        success:function(data){
+            alert(data+" ");
         }
 
     });
