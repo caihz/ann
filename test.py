@@ -6,34 +6,35 @@ import struct
 import file_tools
 import json
 
+
 def main():
-    input_num = 28*28
+    input_num = 28 * 28
     hiden_num = 80
     output_num = 10
     alpha = 0.3
-    count = 0    
-    nw = network.NetWork(input_num, hiden_num, output_num, alpha)           
+    count = 0
+    nw = network.NetWork(input_num, hiden_num, output_num, alpha)
 
-    with open('last_data.json','r') as f:
+    with open('last_data.json', 'r') as f:
         data = json.load(f)
 
     nw.hiden_weight = np.asarray(data['hiden'])
     nw.output_weight = np.asarray(data['output'])
     nw.hiden_theta = np.asarray(data['hiden_theta'])
     nw.output_theta = np.asarray(data['output_theta'])
-    test_num = 10000 # 测试样本数
+    test_num = 10000  # 测试样本数
     for i in xrange(test_num):
-        img_list = file_tools.read_image('t10k-images.idx3-ubyte',i)
-        expect_list = file_tools.read_label('t10k-labels.idx1-ubyte',i)
+        img_list = file_tools.read_image('t10k-images.idx3-ubyte', i)
+        expect_list = file_tools.read_label('t10k-labels.idx1-ubyte', i)
         result = nw.get_output_result(img_list)
 
-        print expect_list,'\t',np.float64(result).round(), i
+        print expect_list, '\t', np.float64(result).round(), i
         if (expect_list - np.float64(result).round()).sum() == 0:
             print 'success'
             count += 1
         else:
             print 'fail'
-    print 'success count='+ str(count)
+    print 'success count=' + str(count)
 
 if __name__ == '__main__':
     main()
