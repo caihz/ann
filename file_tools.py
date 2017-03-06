@@ -10,7 +10,7 @@ import json
 def convert_image(file):
     img = Image.open(file)
     img = img.resize((28, 28))
-    img = img.convert("L")
+    img = img.convert("1")
     img.save('img.png')
     img_list = np.ones((28 * 28), dtype=int)
     # print img.size
@@ -44,7 +44,7 @@ def get_num(file):
     nw.output_theta = np.asarray(data['output_theta'])
     result = nw.get_output_result(img_list)
     print np.float64(result).round()
-    num = 0
+    num = json.dumps(np.int32(np.float64(result).round()).tolist())
 
     # dic = {
     # 0:np.array([1,0,0,0,0,0,0,0,0,0]),
@@ -61,7 +61,7 @@ def get_num(file):
     # for key in dic:
     #     if (dic[key]-np.float64(result).round()).sum()==0:
     #         num = key
-    return 'num'
+    return num
 
 
 # 将文件中第x张图片解析成 01 列表，filename文件名 x =index， 返回一个list
@@ -132,4 +132,10 @@ if __name__ == '__main__':
     # arr=read_image('train-images.idx3-ubyte',2)
     # num = read_label('train-labels.idx1-ubyte',4)
     # print num
-    l = convert_image('img.png')
+    l = convert_image('17.png')
+    print l.size
+    for i in l:
+        if i:
+            print '1',
+        else:
+            print ' ',

@@ -31,10 +31,6 @@
     var oldx = -10;
     var oldy = -10;
     
-    //设置画笔颜色
-    var linecolor = "white";
-    //设置线宽
-    var linw = 30;
     //添加鼠标移动事件
     canvas.addEventListener("mousemove", draw, true);
     //添加鼠标按下事件
@@ -74,9 +70,9 @@
     //设置画线终点
     ctx.lineTo(newx, newy);
     //设置画笔颜色
-    ctx.strokeStyle = linecolor;
+    ctx.strokeStyle = 'white';
     //设置画笔粗细
-    ctx.lineWidth = linw;
+    ctx.lineWidth = 50;
     //设置笔帽
     ctx.lineCap = "round";
     //完成画线

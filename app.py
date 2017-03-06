@@ -3,7 +3,6 @@ from flask import render_template, url_for, request
 from werkzeug import secure_filename
 import base64
 import os
-import StringIO
 import file_tools
 app = Flask(__name__)
 
