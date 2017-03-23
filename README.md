@@ -13,7 +13,7 @@ pip install pillow
 ```
 
 4. Mnist Database
-### include
+## include
 - train-labels-idx1-ubyte
 - train-images-idx3-ubyte
 - t10k-labels-idx1-ubyte
