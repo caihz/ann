@@ -13,6 +13,7 @@ pip install pillow
 ```
 
 4. Mnist Database
+http://yann.lecun.com/exdb/mnist/
 ## include
 - train-labels-idx1-ubyte
 - train-images-idx3-ubyte
