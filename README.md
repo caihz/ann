@@ -7,7 +7,6 @@ Artificial Neural Network
 ```
 pip install numpy
 ```
-
 3. pillow
 ```
 pip install pillow
