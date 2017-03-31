@@ -30,14 +30,16 @@ def convert_image(file):
 def get_num(file):
     img_list = convert_image(file)
     input_num = 28 * 28
-    hiden_num = 80
+    hiden_num = 70
     output_num = 10
     alpha = 0.3
-    nw = network.NetWork(input_num, hiden_num, output_num, alpha)
-
     with open('last_data.json', 'r') as f:
         data = json.load(f)
 
+    input_num = data['input_num']
+    hiden_num = data['hiden_num']
+    output_num = data['output_num']
+    nw = network.NetWork(input_num, hiden_num, output_num, alpha)
     nw.hiden_weight = np.asarray(data['hiden'])
     nw.output_weight = np.asarray(data['output'])
     nw.hiden_theta = np.asarray(data['hiden_theta'])
@@ -77,17 +79,18 @@ def read_image(filename, index):
 
     pos += struct.calcsize('>B') * rows * columns * index   # 设置索引
 
-    arr = np.ones((rows * columns), dtype=int)
+    arr = np.ones((rows * columns), dtype=float)
     # print arr
     i = 0
     for x in xrange(rows):
         for y in xrange(columns):
-            if int(struct.unpack_from('>B', buf, pos)[0]) > 0:
+            v = struct.unpack_from('>B', buf, pos)[0]
+            if int(v) > 0:
                 # print 1,
-                arr[i] = 1
+                arr[i] = v/255.0
             else:
                 # print ' ',
-                arr[i] = 0
+                arr[i] = 0.0
             # arr[i] = int(struct.unpack_from('>B', buf, pos)[0])
             pos += struct.calcsize('>B')
             i += 1
@@ -129,13 +132,14 @@ def read_label(filename, index):
 
 
 if __name__ == '__main__':
-    # arr=read_image('train-images.idx3-ubyte',2)
+    arr=read_image('train-images.idx3-ubyte',2)
+    print arr
     # num = read_label('train-labels.idx1-ubyte',4)
     # print num
-    l = convert_image('17.png')
-    print l.size
-    for i in l:
-        if i:
-            print '1',
-        else:
-            print ' ',
+    # l = convert_image('17.png')
+    # print l.size
+    # for i in l:
+    #     if i:
+    #         print '1',
+    #     else:
+    #         print ' ',
