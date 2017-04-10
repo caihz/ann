@@ -15,7 +15,7 @@ def main():
     count = 0
     nw = network.NetWork(input_num, hiden_num, output_num, alpha)
 
-    with open('last_data.json', 'r') as f:
+    with open('data.json', 'r') as f:
         data = json.load(f)
 
     input_num = data['input_num']
@@ -25,15 +25,15 @@ def main():
     nw.output_weight = np.asarray(data['output'])
     nw.hiden_theta = np.asarray(data['hiden_theta'])
     nw.output_theta = np.asarray(data['output_theta'])
-    test_num = 10000  # 测试样本数
+    test_num = 100  # 测试样本数
     for i in xrange(test_num):
         # index = int(np.random.random()*9999)
         img_list = file_tools.read_image('t10k-images.idx3-ubyte', i)
         expect_list = file_tools.read_label('t10k-labels.idx1-ubyte', i)
         result = nw.get_output_result(img_list)
 
-        print expect_list, '\t', np.float32(result).round(), i
-        if (expect_list - np.float32(result).round()).sum() == 0:
+        print expect_list, '\t', np.argmax(result), i
+        if (np.equal(np.argmax(expect_list),np.argmax(result))):
             print 'success'
             count += 1
         else:

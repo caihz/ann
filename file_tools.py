@@ -33,7 +33,7 @@ def get_num(file):
     hiden_num = 70
     output_num = 10
     alpha = 0.3
-    with open('last_data.json', 'r') as f:
+    with open('data.json', 'r') as f:
         data = json.load(f)
 
     input_num = data['input_num']
@@ -46,24 +46,23 @@ def get_num(file):
     nw.output_theta = np.asarray(data['output_theta'])
     result = nw.get_output_result(img_list)
     print np.float64(result).round()
-    num = json.dumps(np.int32(np.float64(result).round()).tolist())
+    
 
-    # dic = {
-    # 0:np.array([1,0,0,0,0,0,0,0,0,0]),
-    # 1:np.array([0,1,0,0,0,0,0,0,0,0]),
-    # 2:np.array([0,0,1,0,0,0,0,0,0,0]),
-    # 3:np.array([0,0,0,1,0,0,0,0,0,0]),
-    # 4:np.array([0,0,0,0,1,0,0,0,0,0]),
-    # 5:np.array([0,0,0,0,0,1,0,0,0,0]),
-    # 6:np.array([0,0,0,0,0,0,1,0,0,0]),
-    # 7:np.array([0,0,0,0,0,0,0,1,0,0]),
-    # 8:np.array([0,0,0,0,0,0,0,0,1,0]),
-    # 9:np.array([0,0,0,0,0,0,0,0,0,1]),
-    # }
-    # for key in dic:
-    #     if (dic[key]-np.float64(result).round()).sum()==0:
-    #         num = key
-    return num
+    dic = {
+    0:np.array([1,0,0,0,0,0,0,0,0,0]),
+    1:np.array([0,1,0,0,0,0,0,0,0,0]),
+    2:np.array([0,0,1,0,0,0,0,0,0,0]),
+    3:np.array([0,0,0,1,0,0,0,0,0,0]),
+    4:np.array([0,0,0,0,1,0,0,0,0,0]),
+    5:np.array([0,0,0,0,0,1,0,0,0,0]),
+    6:np.array([0,0,0,0,0,0,1,0,0,0]),
+    7:np.array([0,0,0,0,0,0,0,1,0,0]),
+    8:np.array([0,0,0,0,0,0,0,0,1,0]),
+    9:np.array([0,0,0,0,0,0,0,0,0,1]),
+    }
+    num = np.argmax(result)
+    j = json.dumps(dic[num].tolist())
+    return json.dumps(num.tolist())
 
 
 # 将文件中第x张图片解析成 01 列表，filename文件名 x =index， 返回一个list

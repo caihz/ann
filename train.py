@@ -43,7 +43,7 @@ def main():
     # 'output_theta':nw.output_theta.tolist(),
     # }
 
-    last_data = {
+    data = {
     'input_num': input_num,
     'hiden_num': hiden_num,
     'output_num':output_num,
@@ -59,7 +59,7 @@ def main():
     # }
 
     with open('last_data.json','w') as f:
-        json.dump(last_data,f)
+        json.dump(data,f)
 
     # with open('error_data.json','w') as f:
     #     json.dump(error_data,f)
