@@ -9,21 +9,21 @@ import json
 
 def main():
     input_num = 28 * 28
-    hiden_num = 70
+    hidden_num = 70
     output_num = 10
     alpha = 0.3
     count = 0
-    nw = network.NetWork(input_num, hiden_num, output_num, alpha)
+    nw = network.NetWork(input_num, hidden_num, output_num, alpha)
 
     with open('data.json', 'r') as f:
         data = json.load(f)
 
     input_num = data['input_num']
-    hiden_num = data['hiden_num']
+    hidden_num = data['hidden_num']
     output_num = data['output_num']
-    nw.hiden_weight = np.asarray(data['hiden'])
+    nw.hidden_weight = np.asarray(data['hidden'])
     nw.output_weight = np.asarray(data['output'])
-    nw.hiden_theta = np.asarray(data['hiden_theta'])
+    nw.hidden_theta = np.asarray(data['hidden_theta'])
     nw.output_theta = np.asarray(data['output_theta'])
     test_num = 100  # 测试样本数
     for i in xrange(test_num):
