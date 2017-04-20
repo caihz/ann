@@ -5,7 +5,7 @@ import numpy as np
 
 
 class NetWork(object):
-    input_num = 0  # 输出层神经元个数
+    input_num = 0  # 输入层神经元个数
     hidden_num = 0  # 隐藏层神经元个数
     output_num = 0  # 输出层神经元个数
     input_layer = None  # 输入层,为input_num维向量
@@ -20,7 +20,7 @@ class NetWork(object):
     output_theta = None  # 输出层阈值,为ouput_num维向量
     hidden_theta_delta = None  # 隐藏层阈值的调整
     output_theta_delta = None  # 输出层阈值的调整
-    error_squared = 1.0     # 误差的平方和
+    error_squared = 0.0     # 误差
     alpha = 0.3  # 学习率
 
     # 构造函数，需要传入 输入层个数，隐藏层个数，输出层个数 ，学习率
@@ -50,12 +50,10 @@ class NetWork(object):
         i = self.input_num
         j = self.hidden_num
         k = self.output_num
-        self.hidden_weight = np.random.rand(i * j) - 0.5
-        self.hidden_weight = np.reshape(self.hidden_weight, (i, j))
-        self.output_weight = np.random.rand(j * k) - 0.5
-        self.output_weight = np.reshape(self.output_weight, (j, k))
-        self.hidden_theta = np.random.rand(j) - 0.5
-        self.output_theta = np.random.rand(k) - 0.5
+        self.hidden_weight = np.random.randn(j,i) - 0.5
+        self.output_weight = np.random.randn(k,j) - 0.5
+        self.hidden_theta = np.random.randn(j) - 0.5
+        self.output_theta = np.random.randn(k) - 0.5
 
         # print self.hidden_weight
         # print self.hidden_weight.shape
@@ -82,13 +80,13 @@ class NetWork(object):
         a = self.input_layer
         # a = np.random.rand(self.input_num)
         b = self.hidden_weight
-        result = np.dot(a, b) - self.hidden_theta
+        result = np.dot(b, a) - self.hidden_theta
         self.hidden_layer = sigmoid(result)
         # print self.hidden_layer
 
         c = self.hidden_layer
         d = self.output_weight
-        result = np.dot(c, d) - self.output_theta
+        result = np.dot(d, c) - self.output_theta
         self.output_layer = sigmoid(result)
 
         # print self.output_layer
@@ -100,36 +98,21 @@ class NetWork(object):
     	并根据误差，计算出输出层与隐藏层权重的校正(反向传播算法)
     	"""
 
-        expect_func = np.frompyfunc(lambda x: x * (1 - x), 1, 1)
-
         # 输出层
-        # self.expect_result = np.random.rand(4)
-        delta = self.expect_result - self.output_layer
-        self.error_squared = (delta * delta).sum()
-        r = expect_func(self.output_layer)
-        a = np.ones((self.hidden_num, self.output_num))
+        e = self.expect_result - self.output_layer
+        self.error_squared = np.dot(e,e)*0.5
+        a = np.ones((self.hidden_num,self.output_num))
         b = self.hidden_layer
-        delta_k = r * delta
-        self.output_delta = (a.T * b).T * delta_k * self.alpha
-        # self.output_theta_delta = delta_k * self.alpha
-        # print self.output_delta
-        # print (self.output_weight+self.output_delta)
+        delta_k = self.output_layer*(1-self.output_layer) * e
+        self.output_delta = (a * delta_k).T * b * self.alpha
+        self.output_theta_delta = delta_k*self.alpha
 
         # 隐藏层
-        r = expect_func(self.hidden_layer)
-        p = delta_k
-        q = self.output_weight
-        delta_j = np.dot(p, q.T)
-        # print delta_j
-        # self.input_layer = np.random.rand(5)
+        delta_j = np.dot(delta_k, self.output_weight)* (1-self.hidden_layer)*self.hidden_layer
         a = np.ones((self.input_num, self.hidden_num))
         b = self.input_layer
-        self.hidden_delta = (a.T * b).T * delta_j * self.alpha
-        # self.hidden_theta_delta = delta_j * self.alpha
-        # print a.shape
-        # print self.input_layer.shape
-        # print delta_j.shape
-        # print self.hidden_delta
+        self.hidden_delta = (a* delta_j).T * b * self.alpha
+        self.hidden_theta_delta = delta_j * self.alpha
 
     # 权重调整
     def adjust_weight(self):
@@ -156,7 +139,16 @@ class NetWork(object):
 
 
 if __name__ == '__main__':
-    nw = NetWork(5, 3, 4)
-    nw.calculate_result()
-    nw.calculate_expect()
-    nw.adjust_weight()
+    nw = NetWork(3, 4, 5,0.3)
+    nw.input_layer = np.random.randn(3)
+    weight = np.random.randn(3,5)
+    print weight
+    out = np.random.randn(5)
+    print weight*out
+    # weight = np.random.randn(4,3)
+    # print weight
+    # input_layer = np.random.randn(3)
+    # print input_layer
+
+    # print np.dot(weight,input_layer)
+    

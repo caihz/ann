@@ -84,13 +84,10 @@ def read_image(filename, index):
     for x in xrange(rows):
         for y in xrange(columns):
             v = struct.unpack_from('>B', buf, pos)[0]
-            if int(v) > 0:
-                # print 1,
-                arr[i] = v/255.0
+            if v>0:
+                arr[i] = 1
             else:
-                # print ' ',
-                arr[i] = 0.0
-            # arr[i] = int(struct.unpack_from('>B', buf, pos)[0])
+                arr[i] = 0
             pos += struct.calcsize('>B')
             i += 1
         # print '\n'
