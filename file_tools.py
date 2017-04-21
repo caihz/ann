@@ -29,16 +29,13 @@ def convert_image(file):
 
 def get_num(file):
     img_list = convert_image(file)
-    input_num = 28 * 28
-    hidden_num = 70
-    output_num = 10
-    alpha = 0.3
     with open('data.json', 'r') as f:
         data = json.load(f)
 
     input_num = data['input_num']
     hidden_num = data['hidden_num']
     output_num = data['output_num']
+    alpha = data['alpha']
     nw = network.NetWork(input_num, hidden_num, output_num, alpha)
     nw.hidden_weight = np.asarray(data['hidden'])
     nw.output_weight = np.asarray(data['output'])
@@ -46,8 +43,6 @@ def get_num(file):
     nw.output_theta = np.asarray(data['output_theta'])
     result = nw.get_output_result(img_list)
     print np.float64(result).round()
-    
-
     dic = {
     0:np.array([1,0,0,0,0,0,0,0,0,0]),
     1:np.array([0,1,0,0,0,0,0,0,0,0]),
@@ -59,7 +54,7 @@ def get_num(file):
     7:np.array([0,0,0,0,0,0,0,1,0,0]),
     8:np.array([0,0,0,0,0,0,0,0,1,0]),
     9:np.array([0,0,0,0,0,0,0,0,0,1]),
-    }
+    }    
     num = np.argmax(result)
     j = json.dumps(dic[num].tolist())
     return json.dumps(num.tolist())

@@ -8,23 +8,23 @@ import json
 
 def main():
     input_num = 28*28
-    hidden_num = 40
+    hidden_num = 50
     output_num = 10
-    alpha = 0.3
+    alpha = 0.2
     nw = network.NetWork(input_num, hidden_num, output_num, alpha)
-    tran_num = 60000 # 训练数
+    tran_num = 10000 # 训练数
     error_list = []
     for i in xrange(tran_num):
-        # index = int(np.random.random()*59999)
-        img_list = file_tools.read_image('train-images.idx3-ubyte',i)
-        expect_list = file_tools.read_label('train-labels.idx1-ubyte',i) 
+        index = int(np.random.random()*59999)
+        img_list = file_tools.read_image('train-images.idx3-ubyte',index)
+        expect_list = file_tools.read_label('train-labels.idx1-ubyte',index) 
         nw.training(img_list,expect_list)
         error_list.append(nw.error_squared)        
         print str(i)+' error_squared = '+str(nw.error_squared)
         # if i % (tran_num/100) == 0:
         # 	print str(i/(tran_num/100)) +'% error_squared = '+str(nw.error_squared)
         if nw.error_squared<0.001:
-        	break
+            break
 
 
     data = {

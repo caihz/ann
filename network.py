@@ -50,10 +50,12 @@ class NetWork(object):
         i = self.input_num
         j = self.hidden_num
         k = self.output_num
-        self.hidden_weight = np.random.randn(j,i) - 0.5
-        self.output_weight = np.random.randn(k,j) - 0.5
-        self.hidden_theta = np.random.randn(j) - 0.5
-        self.output_theta = np.random.randn(k) - 0.5
+        self.hidden_weight = np.random.rand(i*j)-0.5
+        self.hidden_weight = np.reshape(self.hidden_weight, (i, j))
+        self.output_weight = np.random.rand(j*k)-0.5
+        self.output_weight = np.reshape(self.output_weight, (j,k))
+        self.hidden_theta = np.random.rand(j)-0.5
+        self.output_theta = np.random.rand(k)-0.5
 
         # print self.hidden_weight
         # print self.hidden_weight.shape
@@ -76,17 +78,17 @@ class NetWork(object):
     	避免使用for循环语句，直接使用矩阵的相关运算提高可阅读性
     	'''
 
-        sigmoid = np.frompyfunc(self.sigmoid, 1, 1)
+        sigmoid = np.frompyfunc(self.sigmoid,1,1)
         a = self.input_layer
         # a = np.random.rand(self.input_num)
         b = self.hidden_weight
-        result = np.dot(b, a) - self.hidden_theta
+        result = np.dot(a, b)-self.hidden_theta
         self.hidden_layer = sigmoid(result)
         # print self.hidden_layer
 
         c = self.hidden_layer
-        d = self.output_weight
-        result = np.dot(d, c) - self.output_theta
+        d =self.output_weight
+        result = np.dot(c, d)-self.output_theta
         self.output_layer = sigmoid(result)
 
         # print self.output_layer
@@ -98,28 +100,41 @@ class NetWork(object):
     	并根据误差，计算出输出层与隐藏层权重的校正(反向传播算法)
     	"""
 
+        expect_func = np.frompyfunc(lambda x : x*(1-x),1,1)
+
         # 输出层
-        e = self.expect_result - self.output_layer
-        self.error_squared = np.dot(e,e)*0.5
+        # self.expect_result = np.random.rand(4)
+        e = self.expect_result-self.output_layer
+        self.error_squared = (e*e).sum()*0.5
+
+        yk = expect_func(self.output_layer)
         a = np.ones((self.hidden_num,self.output_num))
         b = self.hidden_layer
-        delta_k = self.output_layer*(1-self.output_layer) * e
-        self.output_delta = (a * delta_k).T * b * self.alpha
+        delta_k = yk*e
+        self.output_delta = (a.T*b).T*delta_k*self.alpha
         self.output_theta_delta = delta_k*self.alpha
+        # print self.output_delta
+        # print (self.output_weight+self.output_delta)
+
 
         # 隐藏层
-        delta_j = np.dot(delta_k, self.output_weight)* (1-self.hidden_layer)*self.hidden_layer
+        yj = expect_func(self.hidden_layer)
+        p = delta_k
+        q = self.output_weight
+        delta_j = np.dot(p,q.T)*yj
+        # print delta_j
+        # self.input_layer = np.random.rand(5)
         a = np.ones((self.input_num, self.hidden_num))
         b = self.input_layer
-        self.hidden_delta = (a* delta_j).T * b * self.alpha
-        self.hidden_theta_delta = delta_j * self.alpha
+        self.hidden_delta = (a.T*b).T*delta_j*self.alpha
+        self.hidden_theta_delta = delta_j*self.alpha
 
     # 权重调整
     def adjust_weight(self):
         self.output_weight = self.output_weight + self.output_delta
         self.hidden_weight = self.hidden_weight + self.hidden_delta
-        # self.output_theta = self.output_theta + self.output_theta_delta
-        # self.hidden_theta = self.hidden_theta + self.hidden_theta_delta
+        self.output_theta = self.output_theta + self.output_theta_delta
+        self.hidden_theta = self.hidden_theta + self.hidden_theta_delta
         # print self.hidden_weight
         # print self.output_weight
 
@@ -140,15 +155,6 @@ class NetWork(object):
 
 if __name__ == '__main__':
     nw = NetWork(3, 4, 5,0.3)
-    nw.input_layer = np.random.randn(3)
-    weight = np.random.randn(3,5)
-    print weight
-    out = np.random.randn(5)
-    print weight*out
-    # weight = np.random.randn(4,3)
-    # print weight
-    # input_layer = np.random.randn(3)
-    # print input_layer
-
-    # print np.dot(weight,input_layer)
+    print nw.hidden_weight
+    print nw.output_weight
     
