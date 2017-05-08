@@ -21,8 +21,9 @@ class myLabel(QtGui.QLabel):
 
     def dropEvent(self, e):
     	print 'drop event'
-        self.setPixmap(QtGui.QPixmap(e.mimeData().urls()[0].toLocalFile()))
-       	self.path = e.mimeData().urls()[0].toLocalFile()
+        self.path = e.mimeData().urls()[0].toLocalFile()
+        print self.path
+        self.setPixmap(QtGui.QPixmap(self.path))
        	self._signal.emit(self.path)
 
 class myLcd(QtGui.QLCDNumber):
@@ -41,16 +42,13 @@ class MyWindow(QtGui.QWidget):
         self.resize(400,800)
         self.mainlayout = QtGui.QVBoxLayout(self)
         self.label= myLabel(self)
-        self.edit = QtGui.QLineEdit('', self)
         self.lcd = myLcd(self)
         self.label.setAcceptDrops(True)
         self.label.setGeometry(0,0,200,200)
         self.label.setScaledContents(True) 
         self.mainlayout.addWidget(self.label)
         self.mainlayout.addWidget(self.lcd)
-        self.mainlayout.addWidget(self.edit)
         self.label.setPixmap(QtGui.QPixmap("0.png"))
-        self.label._signal.connect(self.edit.setText)
         self.label._signal.connect(self.lcd.display)        
 if __name__ == '__main__':
 	app=QtGui.QApplication(sys.argv)
