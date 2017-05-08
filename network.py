@@ -50,12 +50,12 @@ class NetWork(object):
         i = self.input_num
         j = self.hidden_num
         k = self.output_num
-        self.hidden_weight = np.random.rand(i*j)-0.5
+        self.hidden_weight = np.random.rand(i*j)*0.2-0.1
         self.hidden_weight = np.reshape(self.hidden_weight, (i, j))
-        self.output_weight = np.random.rand(j*k)-0.5
+        self.output_weight = np.random.rand(j*k)*0.2-0.1
         self.output_weight = np.reshape(self.output_weight, (j,k))
-        self.hidden_theta = np.random.rand(j)-0.5
-        self.output_theta = np.random.rand(k)-0.5
+        self.hidden_theta = np.random.rand(j)*0.5
+        self.output_theta = np.random.rand(k)*0.5
 
         # print self.hidden_weight
         # print self.hidden_weight.shape
