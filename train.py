@@ -23,8 +23,8 @@ def main():
         print str(i)+' error_squared = '+str(nw.error_squared)
         # if i % (tran_num/100) == 0:
         # 	print str(i/(tran_num/100)) +'% error_squared = '+str(nw.error_squared)
-        if nw.error_squared<0.00001:
-            break
+        # if nw.error_squared<0.00001:
+        #     break
 
 
     data = {

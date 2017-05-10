@@ -44,7 +44,6 @@ class MyWindow(QtGui.QWidget):
         self.label= myLabel(self)
         self.lcd = myLcd(self)
         self.label.setAcceptDrops(True)
-        self.label.setGeometry(0,0,200,200)
         self.label.setScaledContents(True) 
         self.mainlayout.addWidget(self.label)
         self.mainlayout.addWidget(self.lcd)

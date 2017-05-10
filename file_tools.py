@@ -11,7 +11,7 @@ def convert_image(file):
     img = Image.open(file)
     img = img.resize((28, 28))
     img = img.convert("1")
-    img.save('img.png')
+    # img.save('img.png')
     img_list = np.ones((28 * 28), dtype=int)
     # print img.size
     i = 0

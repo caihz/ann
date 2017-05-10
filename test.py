@@ -23,6 +23,7 @@ def main():
     nw.output_theta = np.asarray(data['output_theta'])
     test_num = 10000  # 测试样本数
     for i in xrange(test_num):
+        # index = int(np.random.random()*9999)        
         img_list = file_tools.read_image('t10k-images.idx3-ubyte', i)
         expect_list = file_tools.read_label('t10k-labels.idx1-ubyte', i)
         result = nw.get_output_result(img_list)
