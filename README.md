@@ -12,7 +12,11 @@ pip install numpy
 pip install pillow
 ```
 
-4. Mnist Database
+4. GUI need PyQt4
+
+https://www.riverbankcomputing.com/software/pyqt/download
+
+5. Mnist Database
 
 http://yann.lecun.com/exdb/mnist/
 ## include
@@ -21,6 +25,3 @@ http://yann.lecun.com/exdb/mnist/
 - t10k-labels-idx1-ubyte
 - t10k-images-idx3-ubyte
 
-5. GUI need PyQt4
-
-https://www.riverbankcomputing.com/software/pyqt/download
