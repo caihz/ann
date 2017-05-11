@@ -41,8 +41,8 @@ class NetWork(object):
     def init_parameter(self):
     	'''
     	网络类各个参数的初始化。包括：
-    	隐藏层权重的初始化，初始化为一个input_num*hidden_num的矩阵，值的范围在(-0.5~0.5)
-    	输出层权重的初始化，初始化为一个hidden_num*output_num的矩阵，值的范围在(-0.5~0.5)
+    	隐藏层权重的初始化，初始化为一个input_num*hidden_num的矩阵，值的范围在(-0.1~0.1)
+    	输出层权重的初始化，初始化为一个hidden_num*output_num的矩阵，值的范围在(-0.1~0.1)
     	隐藏层阈值的初始化，初始化为一个hidden_num维向量，值的范围在(-0.5~0.5)
     	输出层阈值的初始化，初始化为一个output_num维向量，值得范围在(-0.5~0.5)
     	'''

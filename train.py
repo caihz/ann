@@ -8,7 +8,7 @@ import json
 
 def main():
     input_num = 28*28
-    hidden_num = 40
+    hidden_num = 30
     output_num = 10
     alpha = 0.3
     nw = network.NetWork(input_num, hidden_num, output_num, alpha)
