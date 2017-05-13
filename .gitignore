@@ -1,2 +1,5 @@
 *.pyc
 *.png
+*.json
+*.idx3-ubyte
+*.idx1-ubyte

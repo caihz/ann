@@ -8,11 +8,11 @@ import json
 
 def main():
     input_num = 28*28
-    hidden_num = 30
+    hidden_num = 40
     output_num = 10
     alpha = 0.3
     nw = network.NetWork(input_num, hidden_num, output_num, alpha)
-    tran_num = 60000 # 训练数
+    tran_num = 100 # 训练数
     error_list = []
     for i in xrange(tran_num):
         # index = int(np.random.random()*59999)
