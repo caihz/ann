@@ -1,7 +1,8 @@
 # ann
-Artificial Neural Network
+BP Artificial Neural Network with three layer.
+Using this network to recognize  MNIST handwritten digits.
 
-## Require
+## Require Library
 1. python2.7
 2. numpy
 ```
