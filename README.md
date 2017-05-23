@@ -31,3 +31,6 @@ http://yann.lecun.com/exdb/mnist/
 2. copy t10k-images.idx3-ubyte file to img dictionary and run img.py(ensure PIL installed) to get MNIST images.
 3. run gui.pyw (ensure PyQt4 installed),you can drag MNIST image to GUI program.
 4. enjoy and happy coding.
+
+## screenshot
+![screenshot](https://raw.githubusercontent.com/kulaice/ann/master/screenshot/screenshot.png)
