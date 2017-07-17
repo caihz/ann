@@ -26,7 +26,7 @@ http://yann.lecun.com/exdb/mnist/
 - t10k-labels-idx1-ubyte
 - t10k-images-idx3-ubyte
 
-## fast using
+## get started
 1. copy data.json from best dictionary to root dictionary(with file_tools.py same dictionary).
 2. copy t10k-images.idx3-ubyte file to img dictionary and run img.py(ensure PIL installed) to get MNIST images.
 3. run gui.pyw (ensure PyQt4 installed),you can drag MNIST image to GUI program.
