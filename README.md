@@ -17,6 +17,8 @@ pip install pillow
 
 https://www.riverbankcomputing.com/software/pyqt/download
 
+you can install from binary package here [PyQt4-4.11.4-gpl-Py2.7-Qt4.8.7-x32.exe](https://github.com/hiyoi/ann/blob/master/pyqt4-binary-package/PyQt4-4.11.4-gpl-Py2.7-Qt4.8.7-x32.exe?raw=true)
+
 5. Mnist Database
 
 http://yann.lecun.com/exdb/mnist/
@@ -27,9 +29,9 @@ http://yann.lecun.com/exdb/mnist/
 - t10k-images-idx3-ubyte
 
 ## get started
-1. copy data.json from best dictionary to root dictionary(with file_tools.py same dictionary).
-2. copy t10k-images.idx3-ubyte file to img dictionary and run img.py(ensure PIL installed) to get MNIST images.
-3. run gui.pyw (ensure PyQt4 installed),you can drag MNIST image to GUI program.
+1. copy `data.json` from best dictionary to root dictionary(with `file_tools.py` same dictionary).
+2. copy `t10k-images.idx3-ubyte` file to img dictionary and run `img.py` (ensure PIL installed) to get MNIST images.
+3. run `gui.pyw` (ensure PyQt4 installed),you can drag MNIST image to GUI program.
 4. enjoy and happy coding.
 
 ## screenshot
